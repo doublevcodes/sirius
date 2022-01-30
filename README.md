@@ -1,3 +1,5 @@
+![](https://cdn.vivaanverma.com/02824232-1DCB-465D-9D73-67D80F829601.jpeg)
+
 # Sirius: create APIs that shine like a star
 
 Sirius, commonly known as the brightest star in the night sky, is also an
