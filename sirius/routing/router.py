@@ -8,6 +8,7 @@ from sirius.utils import sentinel
 
 METHODS = ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "TRACE"]
 
+
 def find_route_folder():
     cwd = Path.cwd()
     route_folder = cwd / "src" / "routes"
@@ -23,9 +24,13 @@ def route_processing_pipeline(routes: list[str]):
         if route.endswith("__init__.py"):
             continue
         if route.endswith("index.py"):
-            yield route.removesuffix("index.py"), file_route.removeprefix("/").replace("/", ".").removesuffix(".py")
+            yield route.removesuffix("index.py"), file_route.removeprefix("/").replace(
+                "/", "."
+            ).removesuffix(".py")
         else:
-            yield route.removesuffix(".py"), file_route.removeprefix("/").replace("/", ".").removesuffix(".py")
+            yield route.removesuffix(".py"), file_route.removeprefix("/").replace(
+                "/", "."
+            ).removesuffix(".py")
 
 
 class Router:
@@ -33,17 +38,12 @@ class Router:
         cwd = Path.cwd()
         route_folder = find_route_folder()
         routes = [path for path in route_folder.rglob("*.py")]
-        unprocessed_routes = [
-            str(path).removeprefix(str(cwd))
-            for path
-            in routes
-        ]
+        unprocessed_routes = [str(path).removeprefix(str(cwd)) for path in routes]
         self.routes = [
             (route, module_path)
-            for (route, module_path)
-            in route_processing_pipeline(unprocessed_routes)
+            for (route, module_path) in route_processing_pipeline(unprocessed_routes)
         ]
-        
+
         self.route_map = {
             route[0]: {
                 "get": sentinel,
@@ -54,8 +54,7 @@ class Router:
                 "options": sentinel,
                 "trace": sentinel,
             }
-            for route
-            in self.routes
+            for route in self.routes
         }
 
         for route, module_name in self.routes:
@@ -75,15 +74,15 @@ class Router:
         status_code = 200
 
         if isinstance(response_body, str):
-                response_body = response_body.encode("utf-8")
-                content_type = b"text/plain"
+            response_body = response_body.encode("utf-8")
+            content_type = b"text/plain"
         elif isinstance(response_body, bytes):
-                content_type = b"text/plain"
+            content_type = b"text/plain"
         elif isinstance(response_body, dict):
-                response_body = bytes(json.dumps(response_body), "utf-8")
-                content_type = b"application/json"
+            response_body = bytes(json.dumps(response_body), "utf-8")
+            content_type = b"application/json"
         elif isinstance(response_body, int):
-                status_code = response_body
+            status_code = response_body
         elif isinstance(response_body, tuple):
             if len(response_body) == 2:
                 response_body, status_code = response_body
@@ -99,14 +98,7 @@ class Router:
 
         return Response(
             start=ResponseStart(
-                status=status_code,
-                headers=[
-                    (b"Content-Type", content_type)
-                ]
+                status=status_code, headers=[(b"Content-Type", content_type)]
             ),
-            body=ResponseBody(
-                body=response_body,
-                more_body=False
-            )
+            body=ResponseBody(body=response_body, more_body=False),
         )
-

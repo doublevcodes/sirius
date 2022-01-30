@@ -5,6 +5,9 @@ description = "Create APIs that shine like a star"
 authors = ["Vivaan Verma <hello@vivaanverma.com>"]
 license = "MIT"
 
+[tool.poetry.scripts]
+sirius = "sirius.__main__:main"
+
 [tool.poetry.dependencies]
 python = "^3.10"
 uvicorn = { version = "^0.17.1", extras = ["standard"] }
