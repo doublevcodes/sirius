@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "sirius"
+version = "0.1.0"
+description = "Create APIs that shine like a star"
+authors = ["Vivaan Verma <hello@vivaanverma.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+uvicorn = { version = "^0.17.1", extras = ["standard"] }
+tomli = "^2.0.0"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
