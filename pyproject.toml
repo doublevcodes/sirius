@@ -1,9 +1,10 @@
 [tool.poetry]
-name = "sirius"
+name = "sirius-api"
 version = "0.1.0"
 description = "Create APIs that shine like a star"
 authors = ["Vivaan Verma <hello@vivaanverma.com>"]
 license = "MIT"
+packages = [{ include = "sirius" }]
 
 [tool.poetry.scripts]
 sirius = "sirius.__main__:main"
