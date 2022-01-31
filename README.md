@@ -35,4 +35,18 @@ $ python3 -m pip install sirius-api
 
 ## Usage
 
-Use it!
+After installing Sirius, you can create a new project! Throughout the documentation we'll
+work on an API that mocks data about planets 🪐.
+
+### Project Structure
+
+A basic Sirius project will contain the following files in its root directory:
+
+→ `pyproject.toml`/`poetry.lock` - Files to define dependencies, Sirius is in here!<br/>
+→ `sirius.config.toml` - Sirius needs configuration... you provide configuration!
+
+Then, the truly galactic part. File-system routing!
+Create a directory called `src` and within it a subdirectory named `routes`.
+
+We have now entered holy land - there is no turning back once you realise that every file
+you define from now on, will be an endpoint in your API.
