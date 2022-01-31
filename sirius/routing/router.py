@@ -1,5 +1,6 @@
 import importlib
 import json
+import os
 from pathlib import Path
 
 from sirius.core.response import Response, ResponseBody, ResponseStart
@@ -20,16 +21,16 @@ def find_route_folder():
 
 def route_processing_pipeline(routes: list[str]):
     for file_route in routes:
-        route = file_route.removeprefix("/src/routes")
+        route = file_route.removeprefix(f"{os.sep}src{os.sep}routes")
         if route.endswith("__init__.py"):
             continue
         if route.endswith("index.py"):
-            yield route.removesuffix("index.py"), file_route.removeprefix("/").replace(
-                "/", "."
-            ).removesuffix(".py")
+            yield route.removesuffix("index.py"), file_route.removeprefix(
+                os.sep
+            ).replace(os.sep, ".").removesuffix(".py")
         else:
-            yield route.removesuffix(".py"), file_route.removeprefix("/").replace(
-                "/", "."
+            yield route.removesuffix(".py"), file_route.removeprefix(os.sep).replace(
+                os.sep, "."
             ).removesuffix(".py")
 
 
