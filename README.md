@@ -13,11 +13,14 @@ possible experience developing a dazzling application on a starry night.
 ## Features
 
 - File-system based routing
-- Full ASGI compliance
-- A simple configuration system
 - A zero-boilerplate experience
 - A CLI utility
-- State-of-the-art documentation
+
+## Planned features
+
+- State-of-the-art documentation ([#2](../../issues/2))
+- Full ASGI compliance ([#3](../../issues/3))
+- A simple configuration system ([#4](../../issues/4))
 
 ## Getting Started
 
