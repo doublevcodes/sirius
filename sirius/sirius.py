@@ -11,7 +11,7 @@ class Sirius:
         debug: bool | None = False,
     ) -> None:
         self._debug = debug
-        self.router = Router()
+        self.router = Router("src/routes")  # TODO: when configuration is implemented, this should be a configurable value
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         assert scope["type"] == "http"

@@ -2,67 +2,68 @@ import importlib
 import json
 import os
 from pathlib import Path
+from types import ModuleType
+from typing import Callable
 
 from sirius.core.response import Response, ResponseBody, ResponseStart
-from sirius.utils import sentinel
-
-
-METHODS = ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "TRACE"]
-
-
-def find_route_folder():
-    cwd = Path.cwd()
-    route_folder = cwd / "src" / "routes"
-    if route_folder.exists():
-        return route_folder
-    else:
-        raise FileNotFoundError(f"Could not find src/routes folder in {cwd}")
-
-
-def route_processing_pipeline(routes: list[str]):
-    for file_route in routes:
-        route = file_route.removeprefix(f"{os.sep}src{os.sep}routes")
-        if route.endswith("__init__.py"):
-            continue
-        if route.endswith("index.py"):
-            yield route.removesuffix("index.py"), file_route.removeprefix(
-                os.sep
-            ).replace(os.sep, ".").removesuffix(".py")
-        else:
-            yield route.removesuffix(".py"), file_route.removeprefix(os.sep).replace(
-                os.sep, "."
-            ).removesuffix(".py")
+from sirius.utils import METHODS, sentinel, _Sentinel
 
 
 class Router:
-    def __init__(self) -> None:
-        cwd = Path.cwd()
-        route_folder = find_route_folder()
-        routes = [path for path in route_folder.rglob("*.py")]
-        unprocessed_routes = [str(path).removeprefix(str(cwd)) for path in routes]
+    def __init__(self, routes_path: str) -> None:
+        self.routes_path = routes_path
+        self.route_folder = self.find_route_folder()
+
         self.routes = [
-            (route, module_path)
-            for (route, module_path) in route_processing_pipeline(unprocessed_routes)
+            (route, module)
+            for (route, module)
+            in self.process_routes()
         ]
 
-        self.route_map = {
+        self.route_map: dict[str, dict[str, Callable | _Sentinel]] = {
             route[0]: {
-                "get": sentinel,
-                "post": sentinel,
-                "put": sentinel,
-                "delete": sentinel,
-                "head": sentinel,
-                "options": sentinel,
-                "trace": sentinel,
+                method.lower(): sentinel
+                for method
+                in METHODS
             }
-            for route in self.routes
+            for route
+            in self.routes
         }
 
-        for route, module_name in self.routes:
-            loaded_route = importlib.import_module(module_name)
+        for route, module in self.routes:
             for method in [method.lower() for method in METHODS]:
-                if hasattr(loaded_route, method):
-                    self.route_map[route][method] = getattr(loaded_route, method)
+                if hasattr(module, method):
+                    self.route_map[route][method] = getattr(module, method)
+
+    def find_route_folder(self) -> Path:
+        route_folder = Path.cwd() / self.routes_path
+        if route_folder.exists():
+            return route_folder
+        else:
+            raise FileNotFoundError(f"Could not find {self.routes_path} folder in current working directory.")
+
+    def process_routes(self):
+        cwd = Path.cwd()
+        python_files = [path for path in self.route_folder.rglob("*.py")]
+        relative_routes = [str(path).removeprefix(str(cwd)) for path in python_files]
+
+        path_module_path_pairs: list[tuple[str, str]] = []
+
+        for file_route in relative_routes:
+            route = file_route.removeprefix(f"/{self.routes_path}")
+            file_route = file_route.removesuffix(".py").replace(os.sep, ".")
+
+            if route.endswith("__init__.py"):
+                continue
+
+            if route.endswith("index.py"):
+                path_module_path_pairs.append((route.removesuffix("index.py"), file_route.removeprefix(".")))
+
+            else:
+                path_module_path_pairs.append((route.removesuffix(".py"), file_route.removeprefix(".")))
+
+        path_module_pairs: list[tuple[str, ModuleType]] = [(path, importlib.import_module(module_path)) for (path, module_path) in path_module_path_pairs]
+        return path_module_pairs
 
     def route(self, route: str, method: str) -> Response:
         if route not in self.route_map:

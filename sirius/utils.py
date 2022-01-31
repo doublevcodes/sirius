@@ -4,3 +4,10 @@ class _Sentinel:
 
 
 sentinel = _Sentinel()
+
+METHODS = ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "TRACE"]
+
+DEFAULT_IGNORE_FILES = [
+    "__init__.py",
+    "__main__.py",
+]

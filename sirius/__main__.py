@@ -22,7 +22,7 @@ def argument(*name_or_flags, **kwargs):
 
 @subcommand([argument("-p", "--port", help="Port to run the server on")])
 def dev(args):
-    uvicorn.run("sirius.sirius:sirius", port=int(args.port) if args.port else 8000)
+    uvicorn.run("sirius.sirius:sirius", port=int(args.port) if args.port else 8000, reload=True)
 
 
 def main():
