@@ -8,7 +8,7 @@ By learning from frameworks written not only in Python, but other languages
 too, Sirius provides a set of distinctive features aiming to provide the best
 possible experience developing a dazzling application on a starry night.
 
-![Twitter](https://img.shields.io/twitter/follow/siriusapi?color=%23e39ff6&logo=twitter&logoColor=white&style=for-the-badge)
+[![Twitter](https://img.shields.io/twitter/follow/siriusapi?color=%23e39ff6&logo=twitter&logoColor=white&style=for-the-badge)](https://twitter.com/siriusapi)
 
 ## Features
 
