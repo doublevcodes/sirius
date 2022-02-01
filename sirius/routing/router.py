@@ -50,13 +50,13 @@ class Router:
         path_module_path_pairs: list[tuple[str, str]] = []
 
         for file_route in relative_routes:
-            route = file_route.removeprefix(f"/{self.routes_path}")
+            route = file_route.removeprefix(f"{os.sep}{self.routes_path}")
             file_route = file_route.removesuffix(".py").replace(os.sep, ".")
 
-            if route.endswith("__init__.py"):
+            if route.startswith(f"{os.sep}_"):
                 continue
 
-            if route.endswith("index.py"):
+            if route.endswith("__init__.py"):
                 path_module_path_pairs.append((route.removesuffix("index.py"), file_route.removeprefix(".")))
 
             else:
