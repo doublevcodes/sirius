@@ -11,13 +11,15 @@ class Sirius:
         debug: bool | None = False,
     ) -> None:
         self._debug = debug
-        self.router = Router("src/routes")  # TODO: when configuration is implemented, this should be a configurable value
+        self.router = Router(
+            "src/routes"
+        )  # TODO: when configuration is implemented, this should be a configurable value
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         assert scope["type"] == "http"
 
         request: Request = await Request.from_request(scope, receive)
-        response = self.router.route(request.scope.path, request.scope.method.lower())
+        response = self.router.route(request.scope.method.lower(), request.scope.path, request.scope.query_string)
         await self.respond(send, response)
 
     async def respond(self, send: Send, response: Response) -> None:

@@ -18,5 +18,5 @@ class ResponseBody:
 
 @dataclass
 class Response:
-    start: ResponseStart
-    body: ResponseBody
+    start: ResponseStart = field(default_factory=ResponseStart)
+    body: ResponseBody = field(default_factory=ResponseBody)

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sirius-api"
-version = "0.1.1"
+version = "0.1.2"
 description = "Create APIs that shine like a star"
 authors = ["Vivaan Verma <hello@vivaanverma.com>"]
 license = "MIT"
