@@ -12,12 +12,14 @@ sirius = "sirius.__main__:main"
 [tool.poetry.dependencies]
 python = "^3.10"
 uvicorn = { version = "^0.17.1", extras = ["standard"] }
-tomli = "^2.0.0"
+# CLI
 rich = "^11.1.0"
 click = "^8.0.3"
+#onfiguration
 desert = "^2020.11.18"
 marshmallow = "^3.14.1"
 attrs = "^21.4.0"
+atoml = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
