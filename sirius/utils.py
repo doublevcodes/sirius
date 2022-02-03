@@ -11,3 +11,5 @@ DEFAULT_IGNORE_FILES = [
     "__init__.py",
     "__main__.py",
 ]
+
+PATH_PARAMS_REGEX = r"(?<=<)[a-zA-Z-_]+(?=>)"

@@ -217,3 +217,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Docs
+dist/
+site/

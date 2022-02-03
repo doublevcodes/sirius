@@ -19,7 +19,9 @@ class Sirius:
         assert scope["type"] == "http"
 
         request: Request = await Request.from_request(scope, receive)
-        response = self.router.route(request.scope.method.lower(), request.scope.path, request.scope.query_string)
+        response = self.router.route(
+            request.scope.method.lower(), request.scope.path, request.scope.query_string
+        )
         await self.respond(send, response)
 
     async def respond(self, send: Send, response: Response) -> None:

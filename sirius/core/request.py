@@ -9,6 +9,10 @@ Self = TypeVar("Self", bound="Request")
 
 @dataclass
 class ConnectionScope:
+    """This is a dataclass representing the scope of a connection request.
+
+    :param scope: The scope of the connection request.
+    """
     type: Literal["http"]
     asgi_version: Literal["2.0", "2.1", "2.2", "2.3"]
     http_version: Literal["1.0", "1.1", "2.0"]
@@ -33,23 +37,15 @@ class RequestReceive:
 class Request:
     def __init__(self, scope: Scope, receive: Message) -> None:
         self.scope = ConnectionScope(
-            type=scope.get("type", "http"),
-            asgi_version=scope.get("asgi.version", "2.0"),
-            http_version=scope.get("http.version"),
-            method=scope.get("method"),
-            scheme=scope.get("scheme", "http"),
-            path=scope.get("path"),
-            raw_path=scope.get("raw_path"),
-            query_string=scope.get("query_string"),
-            root_path=scope.get("root_path"),
-            headers=scope.get("headers"),
-            client=scope.get("client"),
-            server=scope.get("server"),
+            type=scope.pop("type", "http"),
+            asgi_version=scope.pop("asgi.version", "2.0"),
+            http_version=scope.pop("http.version"),
+            method=scope.pop("method"),
+            scheme=scope.pop("scheme", "http"),
+            **scope,
         )
         self.receive = RequestReceive(
-            type=receive.get("type"),
-            body=receive.get("body"),
-            more_body=receive.get("more_body"),
+            **receive,
         )
 
     @classmethod

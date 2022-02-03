@@ -1,0 +1,22 @@
+site_name: Sirius
+site_url: https://example.com/
+
+repo_name: doublevcodes/sirius
+repo_url: https://github.com/doublevcodes/sirius/
+
+theme:
+  name: material
+  palette:
+    primary: white
+  features:
+    - navigation.instant
+  icon:
+    repo: fontawesome/brands/github-alt
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
