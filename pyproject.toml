@@ -13,6 +13,8 @@ sirius = "sirius.__main__:main"
 python = "^3.10"
 uvicorn = { version = "^0.17.1", extras = ["standard"] }
 tomli = "^2.0.0"
+rich = "^11.1.0"
+click = "^8.0.3"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
