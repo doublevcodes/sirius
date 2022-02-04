@@ -45,4 +45,4 @@ def get():
 
 !!! note "Where does this go in my project?"
 
-    The file this would be found in relative to your project would be `./routes/__init__.py`. as you'll soon lean, a file named `__init__.py` in Sirius represents a root endpoint. Keep flying!
+    The file this would be found in relative to your project would be `./routes/__init__.py`. as you'll soon lean, a file named `__init__.py` in Sirius represents a root endpoint. Keep flying! You're nearly there!
