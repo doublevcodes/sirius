@@ -1,7 +1,5 @@
 # Sirius
 
-![Sirius Logo](https://github.com/doublevcodes/sirius/blob/main/docs/img/sirius.jpg)
-
 *Sirius: create APIs that shine like a star*
 
 ---
