@@ -1,6 +1,8 @@
 # Sirius
 
-*Sirius: create APIs that shine like a star*
+![Sirius Logo](https://raw.githubusercontent.com/doublevcodes/sirius/main/docs/img/sirius.jpg)
+
+*Create APIs that shine like a star*
 
 ---
 
@@ -24,9 +26,23 @@ You don't need to install any external packages to run a Sirius application... a
 
 Simple:
 
-```zsh
-python3 -m pip install sirius
-```
+=== "Pip"
+
+    ```zsh
+    $ pip install sirius-api
+    ```
+
+=== "Pipenv"
+
+    ```zsh
+    $ pipenv install sirius-api
+    ```
+
+=== "Poetry"
+
+    ```zsh
+    $ poetry add sirius-api
+    ```
 
 ...and you're ready to dive into an astronomical world of fun!
 
@@ -42,5 +58,36 @@ def get():
 ```
 
 !!! note "Where does this go in my project?"
-
+    
     The file this would be found in relative to your project would be `./routes/__init__.py`. as you'll soon lean, a file named `__init__.py` in Sirius represents a root endpoint. Keep flying! You're nearly there!
+
+### Run it
+
+Now that you've defined what your API should do, we need to run it! So open up a terminal and run `sirius dev`. This should start up a development server that uses
+[Uvicorn](https://www.uvicorn.org/) on port 8000, so have a look at <http://localhost:8000>.
+
+Depending on your browser, you should see some variation of the text: **Astronomically amazing!**
+
+!!! success "You've made a complete Sirius app!"
+
+## Recommended resources
+
+### HTTP Client
+
+As you progress further in your API development adventure, it would be suggested to not rely on your browser for testing them.
+Instead, [HTTPie](https://httpie.io), which is a HTTP client for the CLI with a desktop app and website currently in beta, is recommended.
+It provides easy-to-remember syntax and is very powerful. A simple `DELETE` request to `localhost:8000/foo`, using `sirius` as the `lib` query parameter can be represented as
+
+```zsh
+$ http POST :8000/foo sirius==lib
+```
+
+Yes: it's that easy!
+
+### REST Architecture
+
+The [MDN Web Developer Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP) explains REST concepts in extreme detail. Here you can find detail information on HTTP verbs
+and HTTP status codes. Have a good read!
+
+
+!!! tldr "Have fun developing with Sirius!"
