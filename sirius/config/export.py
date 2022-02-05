@@ -1,12 +1,10 @@
 import re
 import sys
 import typing as t
-from collections import defaultdict, OrderedDict
-from collections.abc import MutableMapping
+from collections import OrderedDict
 from pathlib import Path
 
 import atoml
-import rich
 from attr import fields_dict
 
 from sirius.config.config import Cfg, ConfigurationSchema
@@ -111,7 +109,9 @@ def export_default_config(file) -> bool:
 
         for index, _ in enumerate(keys[1:], start=1):
             if index == last_index:
-                field = f"{field}[keys[{index}]].metadata['config_metadata'].description"
+                field = (
+                    f"{field}[keys[{index}]].metadata['config_metadata'].description"
+                )
             else:
                 field = f"fields_dict({field}[keys[{index}]].type)"
 
@@ -134,7 +134,9 @@ def export_default_config(file) -> bool:
     with check_file:
         with open(file, "w") as f:
             toml_dump = atoml.dumps(doc)
-            toml_dump = re.sub(r"(comment_\w+ = \"(.*)\")", r"# \2", toml_dump, 0, re.MULTILINE)
+            toml_dump = re.sub(
+                r"(comment_\w+ = \"(.*)\")", r"# \2", toml_dump, 0, re.MULTILINE
+            )
             f.write(toml_dump)
 
     for file in check_file.edited_files:

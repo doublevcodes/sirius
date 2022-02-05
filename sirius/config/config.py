@@ -119,8 +119,14 @@ def _load_config(file: Path) -> Config:
     # Extra configuration values are okay, we aren't trying to be strict here.
     loaded_config_dict = _remove_extra_values(Cfg, loaded_config_dict)
 
-    loaded_config_dict = ConfigurationSchema().load(data=loaded_config_dict, unknown=marshmallow.EXCLUDE)
-    return Config(user=loaded_config_dict, schema=ConfigurationSchema, default=_DEFAULT_CACHED_CONFIG)
+    loaded_config_dict = ConfigurationSchema().load(
+        data=loaded_config_dict, unknown=marshmallow.EXCLUDE
+    )
+    return Config(
+        user=loaded_config_dict,
+        schema=ConfigurationSchema,
+        default=_DEFAULT_CACHED_CONFIG,
+    )
 
 
 def update_config(file: t.Optional[Path] = DEFAULT_CONFIG_FILE_PATH) -> None:

@@ -15,7 +15,7 @@ uvicorn = { version = "^0.17.1", extras = ["standard"] }
 # CLI
 rich = "^11.1.0"
 click = "^8.0.3"
-#onfiguration
+# Configuration
 desert = "^2020.11.18"
 marshmallow = "^3.14.1"
 attrs = "^21.4.0"

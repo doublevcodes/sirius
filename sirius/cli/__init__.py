@@ -10,7 +10,9 @@ from sirius.config.config import DEFAULT_CONFIG_FILE_PATH, update_config, get_co
 from sirius.config.export import export_default_config
 
 
-def parse_config(ctx: click.Context, _param: click.Parameter, value: Optional[str]) -> Optional[str]:
+def parse_config(
+    ctx: click.Context, _param: click.Parameter, value: Optional[str]
+) -> Optional[str]:
     config_file = value or DEFAULT_CONFIG_FILE_PATH
     update_config(config_file)
     config = attr.asdict(get_config().user)
@@ -55,7 +57,7 @@ def main(ctx: click.Context, config: str, verbose: bool):
         writable=True,
         allow_dash=False,
         path_type=str,
-    )
+    ),
 )
 def export(file_name: str):
     export_default_config(Path(file_name))
