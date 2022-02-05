@@ -105,8 +105,8 @@ def _remove_extra_values(klass: type, dit: DictT) -> DictT:
     return cleared_dict
 
 
-config: "Config" = None
-default_config: Cfg = Cfg()
+_CACHED_CONFIG: "Config" = None
+_DEFAULT_CACHED_CONFIG: Cfg = Cfg()
 
 
 def _load_config(file: Path) -> Config:
@@ -120,10 +120,13 @@ def _load_config(file: Path) -> Config:
     loaded_config_dict = _remove_extra_values(Cfg, loaded_config_dict)
 
     loaded_config_dict = ConfigurationSchema().load(data=loaded_config_dict, unknown=marshmallow.EXCLUDE)
-    return Config(user=loaded_config_dict, schema=ConfigurationSchema, default=default_config)
+    return Config(user=loaded_config_dict, schema=ConfigurationSchema, default=_DEFAULT_CACHED_CONFIG)
 
 
-def update_config(file: t.Optional[Path] = DEFAULT_CONFIG_FILE_PATH) -> Config:
-    global config
-    config = _load_config(file)
-    return config
+def update_config(file: t.Optional[Path] = DEFAULT_CONFIG_FILE_PATH) -> None:
+    global _CACHED_CONFIG
+    _CACHED_CONFIG = _load_config(file)
+
+
+def get_config() -> Config:
+    return _CACHED_CONFIG
