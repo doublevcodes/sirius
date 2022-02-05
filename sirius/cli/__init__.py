@@ -42,7 +42,7 @@ def parse_config(
 )
 @click.version_option(version=__version__)
 @click.pass_context
-def main(ctx: click.Context, config: str, verbose: bool):
+def main(ctx: click.Context, config: str, verbose: bool) -> None:
     ...
 
 
@@ -59,12 +59,13 @@ def main(ctx: click.Context, config: str, verbose: bool):
         path_type=str,
     ),
 )
-def export(file_name: str):
+@click.pass_context
+def export(ctx: click.Context, file_name: str) -> None:
     export_default_config(Path(file_name))
 
 
 @main.command()
 @click.option("-p", "--port", help="Port to run the server on")
 @click.pass_context
-def dev(ctx: click.Context, port: int):
+def dev(ctx: click.Context, port: int) -> None:
     uvicorn.run("sirius.sirius:sirius", port=port, reload=True)

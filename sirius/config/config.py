@@ -26,6 +26,7 @@ class ConfigMetadata:
 
     @description.validator
     def _validate_description(self, attrib: attr.Attribute, value: t.Any) -> None:
+        """Validate `description` to be of type `str`."""
         if not isinstance(value, attrib.type):
             raise ValueError(f"description must be of {attrib.type}") from None
 
@@ -59,6 +60,7 @@ ConfigurationSchema = desert.schema_class(Cfg, meta={"ordered": True})  # noqa: 
 class Config:
     """
     Base configuration variable. Used across the entire application for configuration variables.
+
     - Holds two variables, default and user.
     - Default is a Cfg instance with nothing passed. It is a default instance of Cfg.
     - User is a Cfg schema instance, generated from a combination of the defaults, user provided toml/yaml.

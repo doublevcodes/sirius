@@ -37,11 +37,11 @@ class DidFileEdit:
                     self.edited_files.append(file)
 
 
-def flatten(d: dict, parent_key: str = "", sep: str = ".") -> dict:
+def flatten(dictionary: dict, parent_key: str = "", sep: str = ".") -> dict:
     """Flatten a `dict` object."""
     items = []
 
-    for k, v in d.items():
+    for k, v in dictionary.items():
         new_key = parent_key + sep + k if parent_key else k
         if isinstance(v, dict):
             items.extend(flatten(v, new_key, sep=sep).items())
@@ -51,7 +51,8 @@ def flatten(d: dict, parent_key: str = "", sep: str = ".") -> dict:
     return dict(items)
 
 
-def unflatten(dictionary):
+def unflatten(dictionary: dict) -> dict:
+    """Unflatten a `dict` object which was flattened by the above function."""
     ret = dict()
 
     for key, value in dictionary.items():
