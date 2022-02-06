@@ -76,7 +76,7 @@ Depending on your browser, you should see some variation of the text: **Astronom
 
 As you progress further in your API development adventure, it would be suggested to not rely on your browser for testing them.
 Instead, [HTTPie](https://httpie.io), which is a HTTP client for the CLI with a desktop app and website currently in beta, is recommended.
-It provides easy-to-remember syntax and is very powerful. A simple `DELETE` request to `localhost:8000/foo`, using `sirius` as the `lib` query parameter can be represented as
+It provides easy-to-remember syntax and is very powerful. A simple `DELETE` request to `http://localhost:8000/foo`, using `sirius` as the `lib` query parameter can be represented as
 
 ```zsh
 $ http DELETE :8000/foo sirius==lib
