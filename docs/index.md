@@ -79,7 +79,7 @@ Instead, [HTTPie](https://httpie.io), which is a HTTP client for the CLI with a 
 It provides easy-to-remember syntax and is very powerful. A simple `DELETE` request to `localhost:8000/foo`, using `sirius` as the `lib` query parameter can be represented as
 
 ```zsh
-$ http POST :8000/foo sirius==lib
+$ http DELETE :8000/foo sirius==lib
 ```
 
 Yes: it's that easy!
