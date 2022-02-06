@@ -20,7 +20,7 @@ Sirius aims to take developer experience to the next level and so it provides a 
 
 Sirius aims to be next-generation and so currently only supports **Python 3.10**. Backwards compatibility to older Python versions may be introduced at a later date.
 
-You don't need to install any external packages to run a Sirius application... apart from Sirius 😅.
+You don't need to install any external packages to run a Sirius application... apart from Sirius :sweat_smile:
 
 ## Installation
 
