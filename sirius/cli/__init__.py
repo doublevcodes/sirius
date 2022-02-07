@@ -42,7 +42,7 @@ def parse_config(
 )
 @click.version_option(version=__version__)
 @click.pass_context
-def main(ctx: click.Context, config: str, verbose: bool) -> None:
+def main(ctx: click.Context, config: str) -> None:
     ...
 
 
