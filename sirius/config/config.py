@@ -71,11 +71,13 @@ class Config:
     default: Cfg = Cfg()
 
 
-def load_toml(path) -> defaultdict:
+def load_toml(path) -> t.Optional[defaultdict]:
     """Load a configuration dictionary from the specified toml file."""
     path = Path(path)
 
     if not path.is_file():
+        if path == DEFAULT_CONFIG_FILE_PATH:
+            return None
         raise CfgLoadError("The provided toml file path is not a valid file.")
 
     try:
@@ -114,6 +116,14 @@ _DEFAULT_CACHED_CONFIG: Cfg = Cfg()
 def _load_config(file: Path) -> Config:
     """Loads a configuration from the specified file."""
     loaded_config_dict = load_toml(file)
+
+    if not loaded_config_dict:
+        # Default config doesn't exist, pick the default config
+        return Config(
+            user=_DEFAULT_CACHED_CONFIG,
+            schema=ConfigurationSchema,
+            default=_DEFAULT_CACHED_CONFIG,
+        )
 
     # HACK remove extra keeps from the configuration dict since marshmallow doesn't know what to do with them
     # CONTRARY to the marshmallow.EXCLUDE below.
