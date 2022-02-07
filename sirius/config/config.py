@@ -117,8 +117,8 @@ def _load_config(file: Path) -> Config:
     """Loads a configuration from the specified file."""
     loaded_config_dict = load_toml(file)
 
-    if not loaded_config_dict:
-        # Default config doesn't exist, pick the default config
+    if loaded_config_dict is None:
+        # Default config file doesn't exist, pick the default config
         return Config(
             user=_DEFAULT_CACHED_CONFIG,
             schema=ConfigurationSchema,
