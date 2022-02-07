@@ -65,7 +65,7 @@ def export(ctx: click.Context, file_name: str) -> None:
 
 
 @main.command()
-@click.option("-p", "--port", help="Port to run the server on")
+@click.option("-p", "--port", help="Port to run the server on", type=int)
 @click.pass_context
 def dev(ctx: click.Context, port: int) -> None:
     uvicorn.run("sirius.sirius:sirius", port=port, reload=True)
