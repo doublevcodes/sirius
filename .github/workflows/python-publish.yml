@@ -1,9 +1,8 @@
 name: Upload Python Package
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    
 
 jobs:
   deploy:
@@ -24,7 +23,7 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
           
       - name: Install dependencies with Poetry
-        run: poetry install
+        run: python3 -m poetry install
         env:
           POETRY_VIRTUALENVS_CREATE: false
       
