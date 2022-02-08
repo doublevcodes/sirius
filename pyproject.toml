@@ -13,7 +13,6 @@ sirius = "sirius.__main__:main"
 python = "^3.10"
 uvicorn = { version = "^0.17.1", extras = ["standard"] }
 # CLI
-rich = "^11.1.0"
 click = "^8.0.3"
 # Configuration
 desert = "^2020.11.18"
