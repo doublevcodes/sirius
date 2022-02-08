@@ -134,20 +134,28 @@ class Router:
         content_type = b"text/plain"
         status_code = 200
 
-        match response_body:
-            case str(response):
-                response_body = response.encode("utf-8")
-            case dict(response):
+        if isinstance(response_body, str):
+            response_body = response_body.encode("utf-8")
+            content_type = b"text/plain"
+        elif isinstance(response_body, bytes):
+            content_type = b"text/plain"
+        elif isinstance(response_body, dict):
+            response_body = bytes(json.dumps(response_body), "utf-8")
+            content_type = b"application/json"
+        elif isinstance(response_body, int):
+            status_code = response_body
+        elif isinstance(response_body, tuple):
+            if len(response_body) == 2:
+                response_body, status_code = response_body
+            elif len(response_body) == 3:
+                response_body, status_code, content_type = response_body
+            if isinstance(response_body, str):
+                response_body = response_body.encode("utf-8")
+            elif isinstance(response_body, dict):
+                response_body = bytes(json.dumps(response_body), "utf-8")
                 content_type = b"application/json"
-            case int(response):
-                status_code = response
-            case (str(response), int(code)):
-                status_code = code
-                response_body = response.encode("utf-8")
-            case (dict(response), int(code)):
-                content_type = b"application/json"
-                status_code = code
-                response_body = json.dumps(response).encode("utf-8")
+        else:
+            raise ValueError(f"Invalid response body {response_body}")
 
         return Response(
             start=ResponseStart(
