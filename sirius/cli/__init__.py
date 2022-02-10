@@ -79,7 +79,10 @@ def export(ctx: click.Context, file_name: str) -> None:
     help="Bind socket to this port.",
     show_default=True,
 )
+@click.option(
+    "--debug", is_flag=True, default=False, help="Enable debug mode."
+)
 @click.option("--reload", is_flag=True, default=False, help="Enable auto-reload.")
 @click.pass_context
-def dev(ctx: click.Context, host: str, port: int, reload: bool) -> None:
-    uvicorn.run("sirius.sirius:sirius", port=port, host=host, reload=reload)
+def dev(ctx: click.Context, host: str, port: int, reload: bool, debug: bool) -> None:
+    uvicorn.run("sirius.sirius:sirius", port=port, host=host, reload=reload, debug=debug)

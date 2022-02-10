@@ -35,6 +35,12 @@ class DeveloperConfig:
             "description": "Enable auto-reload."
         },
     )
+    debug: bool = attr.ib(
+        default=False,
+        metadata={
+            "description": "Enable debug mode."
+        },
+    )
 
 
 @attr.s(auto_attribs=True, slots=True)
