@@ -39,7 +39,23 @@ class DeveloperConfig:
         default=8080,
         metadata={
             METADATA_TABLE: ConfigMetadata(
-                description="Port to run the server on.",
+                description="Bind socket to this port.",
+            )
+        },
+    )
+    host: str = attr.ib(
+        default="127.0.0.1",
+        metadata={
+            METADATA_TABLE: ConfigMetadata(
+                description="Bind socket to this host.",
+            )
+        },
+    )
+    reload: bool = attr.ib(
+        default=False,
+        metadata={
+            METADATA_TABLE: ConfigMetadata(
+                description="Enable auto-reload.",
             )
         },
     )
