@@ -111,7 +111,7 @@ def export_default_config(file) -> bool:
         for index, _ in enumerate(keys[1:], start=1):
             if index == last_index:
                 field = (
-                    f"{field}[keys[{index}]].metadata['config_metadata'].description"
+                    f"{field}[keys[{index}]].metadata['description']"
                 )
             else:
                 field = f"fields_dict({field}[keys[{index}]].type)"

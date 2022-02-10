@@ -42,7 +42,7 @@ def parse_config(
 )
 @click.version_option(version=__version__)
 @click.pass_context
-def main(ctx: click.Context, config: str, verbose: bool) -> None:
+def main(ctx: click.Context, config: str) -> None:
     ...
 
 
@@ -65,7 +65,24 @@ def export(ctx: click.Context, file_name: str) -> None:
 
 
 @main.command()
-@click.option("-p", "--port", help="Port to run the server on", type=int)
+@click.option(
+    "--host",
+    type=str,
+    default="127.0.0.1",
+    help="Bind socket to this host.",
+    show_default=True,
+)
+@click.option(
+    "--port",
+    type=int,
+    default=8000,
+    help="Bind socket to this port.",
+    show_default=True,
+)
+@click.option(
+    "--debug", is_flag=True, default=False, help="Enable debug mode."
+)
+@click.option("--reload", is_flag=True, default=False, help="Enable auto-reload.")
 @click.pass_context
-def dev(ctx: click.Context, port: int) -> None:
-    uvicorn.run("sirius.sirius:sirius", port=port, reload=True)
+def dev(ctx: click.Context, host: str, port: int, reload: bool, debug: bool) -> None:
+    uvicorn.run("sirius.sirius:sirius", port=port, host=host, reload=reload, debug=debug)

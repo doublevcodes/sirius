@@ -11,24 +11,6 @@ from sirius.errors import CfgLoadError
 
 DEFAULT_CONFIG_FILENAME = "sirius.toml"
 DEFAULT_CONFIG_FILE_PATH = Path.cwd() / DEFAULT_CONFIG_FILENAME
-METADATA_TABLE = "config_metadata"
-
-
-@attr.frozen(kw_only=True)
-class ConfigMetadata:
-    """
-    Cfg metadata. This is intended to be used on the marshmallow and attr metadata dict as 'config_metadata'.
-    - All of them are keyword only.
-    - In addition, all instances of this class are frozen; they are not meant to be changed after creation.
-    """
-
-    description: str = attr.ib()
-
-    @description.validator
-    def _validate_description(self, attrib: attr.Attribute, value: t.Any) -> None:
-        """Validate `description` to be of type `str`."""
-        if not isinstance(value, attrib.type):
-            raise ValueError(f"description must be of {attrib.type}") from None
 
 
 @attr.s(auto_attribs=True, slots=True)
@@ -38,9 +20,25 @@ class DeveloperConfig:
     port: int = attr.ib(
         default=8080,
         metadata={
-            METADATA_TABLE: ConfigMetadata(
-                description="Port to run the server on.",
-            )
+            "description": "Bind socket to this port."
+        },
+    )
+    host: str = attr.ib(
+        default="127.0.0.1",
+        metadata={
+            "description": "Bind socket to this host."
+        },
+    )
+    reload: bool = attr.ib(
+        default=False,
+        metadata={
+            "description": "Enable auto-reload."
+        },
+    )
+    debug: bool = attr.ib(
+        default=False,
+        metadata={
+            "description": "Enable debug mode."
         },
     )
 
